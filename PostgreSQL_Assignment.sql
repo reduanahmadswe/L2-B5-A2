@@ -84,4 +84,15 @@ JOIN rangers r on si.ranger_id = r.ranger_id
 ORDER BY si.sighting_time DESC LIMIT 2;
 
 
+--problem 7
+update species 
+SET conservation_status = 'Historic' 
+WHERE EXTRACT(YEAR FROM discovery_date) < 1800;
 
+
+--Problem 8
+
+
+
+--problem 9
+delete from rangers WHERE ranger_id NOT in (SELECT DISTINCT ranger_id FROM sightings);
