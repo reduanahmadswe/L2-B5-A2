@@ -31,11 +31,7 @@ INSERT INTO rangers(name, region)
 VALUES
 ('Alice Green', 'Northern Hills'),
 ('Bob White', 'River Delta'),
-('Carol King', 'Mountain Range'),
-('Fahim Rahman', 'Sundarbans'),
-('Reduan Ahmad', 'Chittagong'),
-('Hossain Ahmad', 'Sylhet'),
-('Tanvir Islam', 'Barisal');
+('Carol King', 'Mountain Range');
 
 
 
@@ -52,4 +48,40 @@ INSERT INTO sightings (species_id, ranger_id, location, sighting_time, notes) VA
 (2, 2, 'Bankwood Area', '2024-05-12 16:20:00', 'Juvenile seen'),
 (3, 3, 'Bamboo Grove East', '2024-05-15 09:10:00', 'Feeding observed'),
 (1, 2, 'Snowfall Pass', '2024-05-18 18:30:00', NULL);
+
+
+--Problem 1 
+INSERT into rangers(name,region)
+VALUES
+('Derek Fox', 'Coastal Plains');
+
+
+--Problem 2
+SELECT count(DISTINCT species_id) as unique_species_count FROM sightings;
+
+--Problem 3
+SELECT * FROM sightings WHERE location like '%Pass%';
+
+
+--Problem 4
+SELECT r.name , count(s.sighting_id) as total_sightings
+from rangers r
+left join sightings s on r.ranger_id = s.ranger_id
+GROUP BY r.ranger_id, r.name
+ORDER BY total_sightings DESC;
+
+
+
+--Problem 5
+select s.common_name
+from species s
+left JOIN sightings si on s.species_id = si.species_id
+WHERE si.sighting_id is null;
+
+--problem 6
+select sp.common_name , si.sighting_time, r.name from sightings si join species sp on si.species_id = sp.species_id
+JOIN rangers r on si.ranger_id = r.ranger_id
+ORDER BY si.sighting_time DESC LIMIT 2;
+
+
 
